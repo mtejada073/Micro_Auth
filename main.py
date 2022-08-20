@@ -7,11 +7,18 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    url = 'https://62f6640ba3bce3eed7c04b72.mockapi.io/items'
+    response = infoUser()
+    return {"items": response }
+
+@app.get("/infoUser/{idUsuario}")
+def read_item(idUsuario : int):
+    list=infoUser()
+    for item in list:
+        print(item)
+        if item["idUsuario"]==idUsuario:
+            return item
+
+def infoUser():
+    url='https://62fef1fea85c52ee483e83bb.mockapi.io/authUsers'
     response = requests.get(url, {}, timeout=5)
-    return {"items": response.json() }
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+    return response.json()
