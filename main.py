@@ -10,12 +10,12 @@ def read_root():
     response = infoUser()
     return {"items": response }
 
-@app.get("/infoUser/{idUsuario}")
-def read_item(idUsuario : int):
+@app.get("/authUsers/{internalId}")
+def read_item(internalId : str):
     list=infoUser()
     for item in list:
         print(item)
-        if item["idUsuario"]==idUsuario:
+        if item["internalId"]==internalId:
             return item
 
 def infoUser():
