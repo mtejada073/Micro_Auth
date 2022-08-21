@@ -1,5 +1,5 @@
 from typing import Union
-from fastapi import FastAPI
+from fastapi import FastAPI, status, Response
 import requests
 from prometheus_fastapi_instrumentator import Instrumentator
 import logging.config
@@ -24,6 +24,8 @@ def read_item(internalId : str):
     for item in list:
         if item["internalId"]==internalId:
             return item
+    
+    return Response(status_code= status.HTTP_204_NO_CONTENT)
 
 def authUsers():
     url='https://62fef1fea85c52ee483e83bb.mockapi.io/authUsers'
