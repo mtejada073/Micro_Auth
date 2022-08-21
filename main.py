@@ -18,11 +18,11 @@ logger = logging.getLogger(__name__)  # the __name__ resolve to "main" since we 
 def read_root():
     return authUsers()
 
-@app.get("/authUsers/{internalId}")
-def read_item(internalId : str):
+@app.get("/authUsers/{encryptedToken}")
+def read_item(encryptedToken : str):
     list=authUsers()
     for item in list:
-        if item["internalId"]==internalId:
+        if item["encryptedToken"]==encryptedToken:
             return item
 
 def authUsers():
