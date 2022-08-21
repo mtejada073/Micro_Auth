@@ -8,6 +8,7 @@ app = FastAPI()
 
 Instrumentator().instrument(app).expose(app)
 
+
 logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
 logger = logging.getLogger(__name__)  # the __name__ resolve to "main" since we are at the root of the project. 
                                       # This will get the root logger since no logger in the configuration has this name.
@@ -17,11 +18,11 @@ logger = logging.getLogger(__name__)  # the __name__ resolve to "main" since we 
 def read_root():
     return authUsers()
 
-@app.get("/authUsers/{encryptedToken}")
-def read_item(encryptedToken : str):
+@app.get("/authUsers/{internalId}")
+def read_item(internalId : str):
     list=authUsers()
     for item in list:
-        if item["encryptedToken"]==encryptedToken:
+        if item["internalId"]==internalId:
             return item
 
 def authUsers():
